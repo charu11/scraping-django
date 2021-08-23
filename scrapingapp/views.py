@@ -3,6 +3,7 @@ from django.shortcuts import render
 from bs4 import BeautifulSoup
 import urllib3
 from urllib.parse import quote_plus
+from . import models
 
 # Create your views here.
 
@@ -16,6 +17,7 @@ def home(request):
 
 def new_search(request):
     search = request.POST.get('search')
+    models.Search.objects.create(search=search)
     final_url = BASE_URL.format(quote_plus(search))
     print(final_url)
     response = requests.get(final_url)
